@@ -1,4 +1,5 @@
 import Data.Message
+
 import Services.ChatService
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -8,8 +9,6 @@ fun main() {
     val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")
     val formatted: String = time.format(formatter)
     val chatService = ChatService()
-
-
 
     val message1 = Message(
         dateTime = formatted,
@@ -90,6 +89,7 @@ fun main() {
     chatService.addUserToData(petr)
     chatService.addUserToData(alex)
 
+
     chatService.addMessage(message1)
     chatService.addMessage(message2)
     chatService.addMessage(message3)
@@ -107,4 +107,6 @@ fun main() {
     chatService.deleteMessage(8)
     chatService.deleteChatById(listOf(3, 1))
     chatService.getMessagesFromChat(chatId = listOf(1, 2), 5, 2)
+
+
 }

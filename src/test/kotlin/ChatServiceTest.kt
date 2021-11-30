@@ -176,7 +176,7 @@ class ChatServiceTest {
         chatService.addUserToData(ivan)
         chatService.addUserToData(elena)
         chatService.addMessage(message1)
-        val result = chatService.deleteMessage(1)
+        val result = chatService.deleteMessage(0)
 
         //assert
         assertTrue(result)
@@ -326,7 +326,7 @@ class ChatServiceTest {
             recipientId = 2
         )
         val updatedMessage = Message(
-            id = 1,
+            id = 0,
             dateTime = formatted,
             text = "qvaqvaqva",
             senderId = 1,
@@ -433,6 +433,7 @@ class ChatServiceTest {
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")
         val formatted: String = time.format(formatter)
         val chatService = ChatService()
+        var chatMessageList = listOf<Message>()
         val ivan = User(
             id = 1,
             firstName = "Иван",
@@ -448,8 +449,10 @@ class ChatServiceTest {
             emptyList()
         )
         val message1 = Message(
+            id=0,
             dateTime = formatted,
             text = "one",
+            readStatus = false,
             senderId = 1,
             recipientId = 2
         )
@@ -457,10 +460,10 @@ class ChatServiceTest {
         chatService.addUserToData(ivan)
         chatService.addUserToData(elena)
         chatService.addMessage(message1)
-        val result = chatService.getMessagesFromChat(listOf(1, 2), 1, 1)
+        val result = chatService.getMessagesFromChat(listOf(),0,0)
 
         // assert
-        assertEquals(result, listOf(message1))
+        assertEquals(result, chatMessageList)
     }
 
     @Test
@@ -494,7 +497,7 @@ class ChatServiceTest {
         chatService.addUserToData(ivan)
         chatService.addUserToData(elena)
         chatService.addMessage(message1)
-        val result = chatService.getUnreadChats(3)
+        val result = chatService.getUnreadChats(1)
 
         // assert
         assertTrue(result.size == 1)
