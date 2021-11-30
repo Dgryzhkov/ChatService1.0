@@ -80,7 +80,7 @@ fun main() {
     val updatedMessage = Message(
         id = 1,
         dateTime = formatted,
-        text = "123",
+        text = "qoqoqoqoqo",
         senderId = 1,
         recipientId = 2
     )
