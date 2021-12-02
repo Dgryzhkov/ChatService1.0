@@ -89,16 +89,22 @@ class ChatService {
         println("Сообщения с таким ID не найдено!!")
         return false
     }
+//
+//    fun getChatList(): MutableMap<Int, MutableList<Message>> {
+//        val chatList = mutableMapOf<Int, MutableList<Message>>()
+//        var count =0
+//        chats.forEach { (_, value) ->
+//            chatList[count] = value
+//            count++
+//        }
+//        return chatList
+//
+//    }
 
-    fun getChatList(): MutableMap<Int, MutableList<Message>> {
-        val chatList = mutableMapOf<Int, MutableList<Message>>()
-
-        chats.forEach { (_, value) ->
-            val count = 1
-            chatList[count] = value
+        fun getChatList(): List<MutableList<Message>> {
+            return chats.values.toList()
         }
-        return chatList
-    }
+
 
 //    fun getMessagesFromChat(chatId: List<Int>, lastMessageId: Int, numberOfMessages: Int): List<Message> {
 //        var chatMessageList = listOf<Message>()
@@ -116,11 +122,13 @@ class ChatService {
 //        return chatMessageList.asSequence().toList()
 //    }
 
-    //ошибка в Build
     fun getMessagesFromChat(chatId: List<Int>, lastMessageId: Int, numberOfMessages: Int): List<Message>  {
-        val key = listOf(chatId, numberOfMessages).sortedBy { lastMessageId }
-        chats.getOrPut(key as List<Int>){ mutableListOf() } += Message(id = lastMessageId, readStatus=true, dateTime ="", text = "", senderId = 0, recipientId = 0)
-        return listOf()
+
+        return chats.getOrElse(chatId){ mutableListOf() }
+            .map { it.copy(id=lastMessageId, readStatus = true) }
+            .toMutableList()
+            .also { chats[chatId]=it }
+            .takeLast(numberOfMessages)
     }
 
 
