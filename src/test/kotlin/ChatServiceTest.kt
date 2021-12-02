@@ -423,7 +423,7 @@ class ChatServiceTest {
         val result = chatService.getChatList()
 
         // assert
-        assertEquals(result, mutableMapOf(Pair((1), mutableListOf(message1))))
+        assertEquals(result, listOf( mutableListOf(message1)))
     }
 
     @Test
@@ -449,7 +449,7 @@ class ChatServiceTest {
             emptyList()
         )
         val message1 = Message(
-            id=0,
+            id = 0,
             dateTime = formatted,
             text = "one",
             readStatus = false,
@@ -460,7 +460,7 @@ class ChatServiceTest {
         chatService.addUserToData(ivan)
         chatService.addUserToData(elena)
         chatService.addMessage(message1)
-        val result = chatService.getMessagesFromChat(listOf(),0,0)
+        val result = chatService.getMessagesFromChat(listOf(), 0, 0)
 
         // assert
         assertEquals(result, chatMessageList)
